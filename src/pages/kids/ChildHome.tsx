@@ -177,18 +177,18 @@ export default function ChildHome() {
 
   const timeBarVariant = timePercent < 75 ? 'green' : timePercent < 100 ? 'orange' : 'red';
 
-  // Age-adaptive layout
+  // Age-adaptive layout (mobile-first)
   const gridClass =
     config.segment === 'toddler'
-      ? 'grid-cols-2 gap-4'
+      ? 'grid-cols-2 gap-3 sm:gap-4'
       : config.segment === 'early-learner'
-        ? 'grid-cols-3 gap-4'
-        : 'grid-cols-5 gap-4';
+        ? 'grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3'
+        : 'grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 md:grid-cols-5';
 
-  const cardMinHeight = config.segment === 'toddler' ? 'min-h-[120px]' : '';
+  const cardMinHeight = config.segment === 'toddler' ? 'min-h-[100px] sm:min-h-[120px]' : '';
 
-  const emojiSize = config.segment === 'toddler' ? 'text-5xl' : 'text-4xl';
-  const subItemSize = config.segment === 'toddler' ? 'w-16 h-16 text-2xl' : 'w-12 h-12 text-xl';
+  const emojiSize = config.segment === 'toddler' ? 'text-4xl sm:text-5xl' : 'text-3xl sm:text-4xl';
+  const subItemSize = config.segment === 'toddler' ? 'w-12 h-12 text-xl sm:w-16 sm:h-16 sm:text-2xl' : 'w-10 h-10 text-lg sm:w-12 sm:h-12 sm:text-xl';
 
   const showScreenTimeWarning = remainingTime <= 5 && remainingTime > 0;
 
@@ -199,59 +199,65 @@ export default function ChildHome() {
   };
 
   return (
-    <div className="kv-page bg-gradient-to-b from-kv-blue/5 to-kv-cream min-h-screen">
+    <div className="kv-page bg-gradient-to-b from-kv-blue/5 to-kv-cream min-h-screen pb-24">
       {/* ═══════ 1. Header Bar ═══════ */}
-      <header className="flex flex-wrap gap-3 items-center justify-between mb-6">
+      <header className="flex items-center justify-between mb-4 sm:mb-6">
         {/* Left: Mascot owl + brand */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <motion.div
             {...floatingAnimation}
-            className="w-14 h-14 rounded-full bg-kv-blue flex items-center justify-center shadow-card"
+            className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-kv-blue flex items-center justify-center shadow-card"
             aria-hidden="true"
           >
-            <span className="text-2xl">🦉</span>
+            <span className="text-xl sm:text-2xl">🦉</span>
           </motion.div>
-          <h1 className="font-display text-2xl md:text-3xl text-kv-blue select-none">
+          <h1 className="font-display text-xl sm:text-2xl md:text-3xl text-kv-blue select-none">
             KidsVerse
           </h1>
         </div>
 
-        {/* Center: Child avatar */}
-        <div className="flex flex-col items-center">
+        {/* Right: Avatar + Sound + Parent */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {activeChildProfile && (
+            <Avatar
+              animal={activeChildProfile.avatar}
+              size="sm"
+              name={activeChildProfile.name}
+              className="sm:hidden"
+            />
+          )}
           {activeChildProfile && (
             <Avatar
               animal={activeChildProfile.avatar}
               size="lg"
               name={activeChildProfile.name}
+              className="hidden sm:flex"
             />
           )}
-        </div>
-
-        {/* Right: Sound controls + parent button */}
-        <div className="flex items-center gap-3">
           <SoundToggleBar />
           <button
             onClick={() => handleNavigate('parent')}
-            className="kv-button-base bg-white text-kv-gray-600 px-4 py-2 text-sm shadow-card rounded-xl hover:shadow-card-hover transition-shadow duration-200"
+            className="kv-button-base bg-white text-kv-gray-600 px-2 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm shadow-card rounded-xl hover:shadow-card-hover transition-shadow duration-200"
             aria-label="Switch to parent mode"
           >
-            👤 Parent
+            <span className="hidden sm:inline">👤 Parent</span>
+            <span className="sm:hidden">👤</span>
           </button>
         </div>
       </header>
 
       {/* ═══════ 2. Welcome Banner ═══════ */}
-      <AnimatedContainer variant="slideUp" className="mb-8">
-        <div className="bg-gradient-to-r from-kv-blue to-kv-cyan text-white rounded-3xl shadow-card p-6 md:p-8">
-          <h2 className="font-display text-2xl md:text-3xl">
-            {getGreeting()}, {childName}! 🌟
+      <AnimatedContainer variant="slideUp" className="mb-6 sm:mb-8">
+        <div className="bg-gradient-to-r from-kv-blue to-kv-cyan text-white rounded-2xl sm:rounded-3xl shadow-card p-4 sm:p-6 md:p-8">
+          <h2 className="font-display text-xl sm:text-2xl md:text-3xl">
+            {getGreeting()}, {childName}! ✨
           </h2>
-          <p className="text-white/80 mt-2 text-lg">{getDailyEncouragement()}</p>
+          <p className="text-white/80 mt-1 sm:mt-2 text-sm sm:text-base md:text-lg">{getDailyEncouragement()}</p>
         </div>
       </AnimatedContainer>
 
       {/* ═══════ 3. Activity Grid ═══════ */}
-      <nav aria-label="Activity sections" className="mb-8">
+      <nav aria-label="Activity sections" className="mb-6 sm:mb-8">
         <StaggerGrid className={cn('grid', gridClass)}>
           {ACTIVITY_SECTIONS.map((section) => (
             <StaggerItem key={section.id}>
@@ -262,23 +268,23 @@ export default function ChildHome() {
                   variant="elevated"
                   gradient={section.gradient}
                   padding="sm"
-                  className={cn(cardMinHeight, 'flex flex-col items-center gap-3')}
+                  className={cn(cardMinHeight, 'flex flex-col items-center gap-2 sm:gap-3 h-full')}
                   aria-label={section.audioLabel}
                 >
                   <span className={cn(emojiSize, 'select-none')} aria-hidden="true">
                     {section.emoji}
                   </span>
                   {config.showTextLabels && (
-                    <span className="font-display text-lg font-bold">{section.title}</span>
+                    <span className="font-display text-sm sm:text-lg font-bold">{section.title}</span>
                   )}
-                  <div className="flex flex-wrap gap-2 justify-center">
+                  <div className="grid grid-cols-2 gap-1.5 sm:gap-2 justify-items-center">
                     {section.subItems.map((sub) => (
                       <button
                         key={sub.path}
                         onClick={() => handleNavigate(`${sub.path}/${profileId}`)}
                         className={cn(
                           subItemSize,
-                          'rounded-full bg-white/20 hover:bg-white/30',
+                          'rounded-full bg-white/20 hover:bg-white/30 active:bg-white/40',
                           'flex items-center justify-center transition-colors duration-200',
                           'focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:outline-none'
                         )}
@@ -302,7 +308,7 @@ export default function ChildHome() {
                   padding="sm"
                   className={cn(
                     cardMinHeight,
-                    'flex flex-col items-center justify-center gap-2'
+                    'flex flex-col items-center justify-center gap-2 h-full'
                   )}
                   onClick={() => handleNavigate(`${section.path}/${profileId}`)}
                   aria-label={section.audioLabel}
@@ -311,7 +317,7 @@ export default function ChildHome() {
                     {section.emoji}
                   </span>
                   {config.showTextLabels && (
-                    <span className="font-display text-lg font-bold">{section.title}</span>
+                    <span className="font-display text-sm sm:text-lg font-bold">{section.title}</span>
                   )}
                 </MotionCard>
               )}
@@ -322,61 +328,65 @@ export default function ChildHome() {
 
       {/* ═══════ 4. Quick Stats Bar ═══════ */}
       <div
-        className="kv-card flex items-center justify-around py-4 px-4 mb-6"
+        className="kv-card py-3 px-3 sm:py-4 sm:px-4 mb-6"
         aria-label="Today's progress summary"
         aria-live="polite"
       >
-        {/* Stars Today */}
-        <div className="text-center flex-1">
-          <p className="text-2xl md:text-3xl font-display font-bold text-kv-yellow">
-            {stats.starsToday}
-          </p>
-          <p className="text-xs text-kv-gray-500 mt-1">
-            {config.segment === 'toddler' ? '⭐ Stars' : 'Stars Today'}
-          </p>
-        </div>
+        <div className="grid grid-cols-4 gap-2 sm:flex sm:items-center sm:justify-around">
+          {/* Stars Today */}
+          <div className="text-center">
+            <p className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-kv-yellow">
+              {stats.starsToday}
+            </p>
+            <p className="text-[10px] sm:text-xs text-kv-gray-500 mt-0.5 sm:mt-1">
+              {config.segment === 'toddler' ? '⭐ Stars' : 'Stars'}
+            </p>
+          </div>
 
-        <div className="w-px h-10 bg-kv-gray-200 flex-shrink-0" aria-hidden="true" />
+          <div className="hidden sm:block w-px h-10 bg-kv-gray-200 flex-shrink-0" aria-hidden="true" />
 
-        {/* Lessons Done */}
-        <div className="text-center flex-1">
-          <p className="text-2xl md:text-3xl font-display font-bold text-kv-blue">
-            {stats.lessonsDone}
-          </p>
-          <p className="text-xs text-kv-gray-500 mt-1">
-            {config.segment === 'toddler' ? '📚 Lessons' : 'Lessons Done'}
-          </p>
-        </div>
+          {/* Lessons Done */}
+          <div className="text-center">
+            <p className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-kv-blue">
+              {stats.lessonsDone}
+            </p>
+            <p className="text-[10px] sm:text-xs text-kv-gray-500 mt-0.5 sm:mt-1">
+              {config.segment === 'toddler' ? '📚 Lessons' : 'Lessons'}
+            </p>
+          </div>
 
-        <div className="w-px h-10 bg-kv-gray-200 flex-shrink-0" aria-hidden="true" />
+          <div className="hidden sm:block w-px h-10 bg-kv-gray-200 flex-shrink-0" aria-hidden="true" />
 
-        {/* New Badges */}
-        <div className="text-center flex-1">
-          <p className="text-2xl md:text-3xl font-display font-bold text-kv-orange">
-            {stats.newBadges}
-          </p>
-          <p className="text-xs text-kv-gray-500 mt-1">
-            {config.segment === 'toddler' ? '🏆 Badges' : 'New Badges'}
-          </p>
-        </div>
+          {/* New Badges */}
+          <div className="text-center">
+            <p className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-kv-orange">
+              {stats.newBadges}
+            </p>
+            <p className="text-[10px] sm:text-xs text-kv-gray-500 mt-0.5 sm:mt-1">
+              {config.segment === 'toddler' ? '🏆 Badges' : 'Badges'}
+            </p>
+          </div>
 
-        <div className="w-px h-10 bg-kv-gray-200 flex-shrink-0" aria-hidden="true" />
+          <div className="hidden sm:block w-px h-10 bg-kv-gray-200 flex-shrink-0" aria-hidden="true" />
 
-        {/* Time Left */}
-        <div className="text-center flex-1">
-          <p className={cn('text-2xl md:text-3xl font-display font-bold', timeColorClass)}>
-            {remainingTime}m
-          </p>
-          <p className="text-xs text-kv-gray-500 mt-1">
-            {config.segment === 'toddler' ? '⏰ Time' : 'Time Left'}
-          </p>
-          <ProgressBar
-            value={todayMinutesUsed}
-            max={limitMinutes}
-            variant={timeBarVariant}
-            size="sm"
-            className="mt-1"
-          />
+          {/* Time Left */}
+          <div className="text-center">
+            <p className={cn('text-xl sm:text-2xl md:text-3xl font-display font-bold', timeColorClass)}>
+              {remainingTime}m
+            </p>
+            <p className="text-[10px] sm:text-xs text-kv-gray-500 mt-0.5 sm:mt-1">
+              {config.segment === 'toddler' ? '⏰ Time' : 'Time Left'}
+            </p>
+            <div className="hidden sm:block">
+              <ProgressBar
+                value={todayMinutesUsed}
+                max={limitMinutes}
+                variant={timeBarVariant}
+                size="sm"
+                className="mt-1"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
