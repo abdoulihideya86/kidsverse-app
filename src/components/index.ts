@@ -28,4 +28,10 @@ export {
   staggerContainer, staggerItem, pageVariants, pageTransition,
   floatingAnimation, wiggleAnimation, pulseGlowAnimation,
   AnimatedContainer, StaggerGrid, StaggerItem,
+  bounceInVariants, jellyVariants, tiltInVariants, confettiVariants,
+  scaleRotateVariants, blurInVariants, shimmerVariants, starBurstVariants,
+  slideUpStagger,
+  heartBeatAnimation, sparkleAnimation, bounceAnimation,
+  flipAnimation, waveAnimation,
+  ParallaxFloat, AnimatedCounter, MorphingEmoji, SpotlightCard,
 } from './animations';

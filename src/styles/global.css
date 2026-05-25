@@ -1,4 +1,6 @@
-/* KidsVerse — Global Styles */
+/* ═══════════════════════════════════════════════════
+   KidsVerse — Global Styles (V3 — Vibrant & Polished)
+   ═══════════════════════════════════════════════════ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,6 +21,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -30,38 +33,36 @@
     @apply min-h-screen w-full;
   }
 
-  /* Child-safe focus indicators — high visibility for all users */
+  /* ── Selection color — soft blue tint ── */
+  ::selection {
+    @apply bg-kv-blue/20;
+  }
+
+  /* ── Child-safe focus — glowing ring for high visibility ── */
   :focus-visible {
-    @apply outline-4 outline-offset-2 outline-kv-blue rounded-lg;
+    @apply outline-none ring-4 ring-kv-blue/40 ring-offset-2 ring-offset-kv-cream rounded-xl;
+    transition: ring-color 0.15s ease;
   }
 
   /* Remove default focus ring for mouse/touch users */
   :focus:not(:focus-visible) {
     outline: none;
+    box-shadow: none;
   }
 
-  /* Smooth scrolling for internal anchors */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Selection color */
-  ::selection {
-    @apply bg-kv-blue/20;
-  }
-
-  /* ═══════ Typography Scale ═══════ */
+  /* ── Typography Scale — display headings with tracking ── */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display leading-tight tracking-tight;
+    @apply font-display leading-tight;
+    letter-spacing: -0.01em;
   }
-  h1 { @apply text-4xl md:text-5xl; }
-  h2 { @apply text-3xl md:text-4xl; }
+  h1 { @apply text-4xl md:text-5xl; letter-spacing: -0.02em; }
+  h2 { @apply text-3xl md:text-4xl; letter-spacing: -0.015em; }
   h3 { @apply text-2xl md:text-3xl; }
   h4 { @apply text-xl md:text-2xl; }
   h5 { @apply text-lg md:text-xl; }
-  h6 { @apply text-base md:text-lg; }
+  h6 { @apply text-base md:text-lg; letter-spacing: 0.01em; }
 
-  /* Reduce motion for users who prefer it */
+  /* ── Reduce motion for users who prefer it ── */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -78,13 +79,27 @@
    COMPONENT LAYER — Reusable Patterns
    ═══════════════════════════════════════════════════ */
 @layer components {
-  /* ── Card System ── */
+
+  /* ═══════ Card System ═══════ */
   .kv-card {
-    @apply bg-white rounded-2xl shadow-card p-4 md:p-6 transition-shadow duration-300;
+    @apply bg-white rounded-2xl shadow-card p-4 md:p-6
+           border border-white/50 transition-all duration-300;
+    border-top: 3px solid transparent;
   }
 
+  /* Colored top-accent variants */
+  .kv-card-accent-blue   { border-top-color: #1E90FF; }
+  .kv-card-accent-green  { border-top-color: #2ED573; }
+  .kv-card-accent-orange { border-top-color: #FF6B2B; }
+  .kv-card-accent-purple { border-top-color: #A55EEA; }
+  .kv-card-accent-pink   { border-top-color: #FF6B9D; }
+  .kv-card-accent-red    { border-top-color: #FF4757; }
+  .kv-card-accent-yellow { border-top-color: #FFC312; }
+  .kv-card-accent-cyan   { border-top-color: #00D2D3; }
+
   .kv-card-interactive {
-    @apply kv-card cursor-pointer hover:shadow-card-hover active:scale-[0.98] transition-all duration-200;
+    @apply kv-card cursor-pointer hover:shadow-card-hover hover:-translate-y-0.5
+           active:scale-[0.98] transition-all duration-200;
   }
 
   .kv-card-elevated {
@@ -95,9 +110,44 @@
     @apply bg-white rounded-2xl border-2 border-kv-gray-100 p-4 md:p-6;
   }
 
-  /* ── Tap Targets (WCAG + COPPA child-safe) ── */
+  /* Soft colored glow behind card */
+  .kv-card-glow {
+    @apply kv-card relative;
+  }
+  .kv-card-glow::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+    z-index: -1;
+    background: inherit;
+    filter: blur(16px);
+    opacity: 0.35;
+  }
+  .kv-card-glow-blue   { box-shadow: 0 8px 32px rgba(30, 144, 255, 0.20); }
+  .kv-card-glow-green  { box-shadow: 0 8px 32px rgba(46, 213, 115, 0.20); }
+  .kv-card-glow-orange { box-shadow: 0 8px 32px rgba(255, 107, 43, 0.20); }
+  .kv-card-glow-purple { box-shadow: 0 8px 32px rgba(165, 94, 234, 0.20); }
+  .kv-card-glow-pink   { box-shadow: 0 8px 32px rgba(255, 107, 157, 0.20); }
+
+  /* ═══════ Glass Morphism ═══════ */
+  .kv-glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/30;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  }
+  .kv-glass-strong {
+    @apply bg-white/85 backdrop-blur-2xl border border-white/40;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  }
+  .kv-glass-colored {
+    @apply backdrop-blur-xl border border-white/20;
+    background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%);
+  }
+
+  /* ═══════ Tap Targets (WCAG + COPPA child-safe) ═══════ */
   .kv-tap-toddler {
     @apply min-w-[80px] min-h-[80px] flex items-center justify-center rounded-2xl;
+    /* Larger touch area for ages 2-4 */
   }
   .kv-tap-early {
     @apply min-w-[60px] min-h-[60px] flex items-center justify-center rounded-2xl;
@@ -106,15 +156,24 @@
     @apply min-w-[48px] min-h-[48px] flex items-center justify-center rounded-2xl;
   }
 
-  /* ── Button Base ── */
+  /* ═══════ Button Base — with inner highlight ═══════ */
   .kv-button-base {
-    @apply rounded-2xl font-bold shadow-button transition-all duration-200
-           hover:shadow-button-hover active:scale-[0.97] inline-flex items-center justify-center
-           focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-kv-blue
-           disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 disabled:hover:shadow-button;
+    @apply rounded-2xl font-bold transition-all duration-200
+           hover:brightness-110 active:scale-[0.97] active:brightness-95
+           inline-flex items-center justify-center gap-2
+           focus-visible:ring-4 focus-visible:ring-kv-blue/40 focus-visible:outline-none
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 disabled:hover:brightness-100;
+    box-shadow:
+      0 4px 14px rgba(0, 0, 0, 0.08),
+      inset 0 2px 0 rgba(255, 255, 255, 0.25);
+  }
+  .kv-button-base:hover {
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.12),
+      inset 0 2px 0 rgba(255, 255, 255, 0.25);
   }
 
-  /* ── Layout Containers ── */
+  /* ═══════ Layout Containers ═══════ */
   .kv-page {
     @apply min-h-screen w-full max-w-7xl mx-auto px-4 py-6 md:px-8 md:py-10;
   }
@@ -127,7 +186,7 @@
     @apply flex items-center justify-center;
   }
 
-  /* ── Accessibility ── */
+  /* ═══════ Accessibility ═══════ */
   .sr-only {
     @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
     clip: rect(0, 0, 0, 0);
@@ -141,49 +200,177 @@
     display: none;
   }
 
-  /* ── Skeleton Loading ── */
+  /* ═══════ Skeleton Loading — animated shimmer ═══════ */
   .kv-skeleton {
-    @apply animate-pulse bg-kv-gray-200 rounded-2xl;
+    @apply rounded-2xl relative overflow-hidden;
+    background: linear-gradient(90deg, #E2E5F0 25%, #F0F2F8 50%, #E2E5F0 75%);
+    background-size: 200% 100%;
+    animation: kv-shimmer 1.8s ease-in-out infinite;
   }
 
-  /* ── Glass morphism effect ── */
-  .kv-glass {
-    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  /* ═══════ Shimmer overlay for loading states ═══════ */
+  .kv-shimmer {
+    @apply relative overflow-hidden;
+  }
+  .kv-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.50) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: kv-shimmer 1.8s ease-in-out infinite;
   }
 
-  /* ── Chip / Tag ── */
+  /* ═══════ Sparkle effect for achievements ═══════ */
+  .kv-sparkle {
+    @apply relative;
+  }
+  .kv-sparkle::before,
+  .kv-sparkle::after {
+    content: '✦';
+    position: absolute;
+    color: #FFC312;
+    font-size: 1rem;
+    line-height: 1;
+    animation: kv-sparkle 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 4px rgba(255, 195, 18, 0.6));
+  }
+  .kv-sparkle::before {
+    top: -6px;
+    right: -6px;
+    animation-delay: 0s;
+  }
+  .kv-sparkle::after {
+    bottom: -6px;
+    left: -6px;
+    animation-delay: 0.75s;
+    font-size: 0.7rem;
+  }
+
+  /* ═══════ Chip / Tag ═══════ */
   .kv-chip {
     @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold
-           bg-kv-gray-100 text-kv-gray-700 transition-colors;
+           bg-kv-gray-100 text-kv-gray-700 transition-all duration-200
+           hover:bg-kv-gray-200;
   }
   .kv-chip-active {
-    @apply kv-chip bg-kv-blue text-white;
+    @apply kv-chip bg-kv-blue text-white shadow-glow-blue hover:brightness-110;
   }
+}
+
+/* ═══════════════════════════════════════════════════
+   KEYFRAMES — Custom animations outside layer
+   ═══════════════════════════════════════════════════ */
+@keyframes kv-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes kv-sparkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  25% { opacity: 0.3; transform: scale(0.6) rotate(-30deg); }
+  50% { opacity: 1; transform: scale(1.4) rotate(15deg); }
+  75% { opacity: 0.5; transform: scale(0.8) rotate(-10deg); }
+}
+
+@keyframes kv-page-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes kv-page-exit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes ripple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
 }
 
 /* ═══════════════════════════════════════════════════
    UTILITIES LAYER — Custom Helpers
    ═══════════════════════════════════════════════════ */
 @layer utilities {
-  /* Gradient backgrounds */
-  .kv-gradient-blue { @apply bg-gradient-to-br from-kv-blue to-blue-400; }
-  .kv-gradient-green { @apply bg-gradient-to-br from-kv-green to-emerald-400; }
-  .kv-gradient-orange { @apply bg-gradient-to-br from-kv-orange to-amber-400; }
-  .kv-gradient-purple { @apply bg-gradient-to-br from-kv-purple to-violet-400; }
-  .kv-gradient-pink { @apply bg-gradient-to-br from-kv-pink to-rose-400; }
-  .kv-gradient-teal { @apply bg-gradient-to-br from-kv-teal to-teal-400; }
-  .kv-gradient-rainbow { @apply bg-gradient-to-br from-kv-red via-kv-yellow via-kv-green to-kv-blue; }
 
-  /* Text gradients */
-  .kv-text-gradient-blue { @apply bg-gradient-to-r from-kv-blue to-kv-cyan bg-clip-text text-transparent; }
-  .kv-text-gradient-rainbow { @apply bg-gradient-to-r from-kv-red via-kv-yellow via-kv-green to-kv-blue bg-clip-text text-transparent; }
-  .kv-text-gradient-gold { @apply bg-gradient-to-r from-kv-yellow to-kv-orange bg-clip-text text-transparent; }
+  /* ── Gradient backgrounds (3-color stops) ── */
+  .kv-gradient-blue   { background: linear-gradient(135deg, #1E90FF 0%, #4DAAFF 50%, #00D2D3 100%); }
+  .kv-gradient-green  { background: linear-gradient(135deg, #2ED573 0%, #5EE09A 50%, #0ABDE3 100%); }
+  .kv-gradient-orange { background: linear-gradient(135deg, #FF6B2B 0%, #FF9054 50%, #FFC312 100%); }
+  .kv-gradient-purple { background: linear-gradient(135deg, #A55EEA 0%, #BF86F5 50%, #FF6B9D 100%); }
+  .kv-gradient-pink   { background: linear-gradient(135deg, #FF6B9D 0%, #FF8FB8 50%, #A55EEA 100%); }
+  .kv-gradient-teal   { background: linear-gradient(135deg, #0ABDE3 0%, #3DD1F0 50%, #2ED573 100%); }
+  .kv-gradient-rainbow { background: linear-gradient(135deg, #FF4757 0%, #FFC312 25%, #2ED573 50%, #1E90FF 75%, #A55EEA 100%); }
 
-  /* Safe area padding for mobile devices */
+  /* ── Text gradients ── */
+  .kv-text-gradient-blue    { background: linear-gradient(135deg, #1E90FF, #00D2D3); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .kv-text-gradient-rainbow { background: linear-gradient(135deg, #FF4757, #FFC312, #2ED573, #1E90FF, #A55EEA); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .kv-text-gradient-gold    { background: linear-gradient(135deg, #FFC312, #FF6B2B); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .kv-text-gradient-purple  { background: linear-gradient(135deg, #A55EEA, #FF6B9D); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .kv-text-gradient-green   { background: linear-gradient(135deg, #2ED573, #0ABDE3); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* ── Gradient text utility (dynamic via CSS custom property) ── */
+  .kv-gradient-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ── Safe area padding for mobile devices ── */
   .kv-safe-bottom {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   .kv-safe-top {
     padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* ── Background patterns ── */
+  .kv-pattern-dot {
+    background-image: radial-gradient(circle, rgba(30, 144, 255, 0.08) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+  .kv-pattern-dot-light {
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .kv-pattern-wave {
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%231E90FF' fill-opacity='0.04' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-position: top;
+    background-size: 100px 20px;
+  }
+
+  /* ── Smooth page transitions ── */
+  .kv-page-enter {
+    animation: kv-page-enter 0.35s ease-out both;
+  }
+  .kv-page-exit {
+    animation: kv-page-exit 0.2s ease-in both;
+  }
+
+  /* ── Focus glow ring (for custom focus states) ── */
+  .kv-focus-glow:focus-visible {
+    box-shadow: 0 0 0 4px rgba(30, 144, 255, 0.30), 0 0 0 2px rgba(30, 144, 255, 0.15);
+  }
+  .kv-focus-glow-success:focus-visible {
+    box-shadow: 0 0 0 4px rgba(46, 213, 115, 0.30), 0 0 0 2px rgba(46, 213, 115, 0.15);
+  }
+  .kv-focus-glow-warning:focus-visible {
+    box-shadow: 0 0 0 4px rgba(255, 107, 43, 0.30), 0 0 0 2px rgba(255, 107, 43, 0.15);
+  }
+  .kv-focus-glow-danger:focus-visible {
+    box-shadow: 0 0 0 4px rgba(255, 71, 87, 0.30), 0 0 0 2px rgba(255, 71, 87, 0.15);
+  }
+
+  /* ── Mobile tap target optimization ── */
+  @media (pointer: coarse) {
+    .kv-tap-toddler { min-width: 88px; min-height: 88px; }
+    .kv-tap-early   { min-width: 66px; min-height: 66px; }
+    .kv-tap-kid     { min-width: 52px; min-height: 52px; }
   }
 }

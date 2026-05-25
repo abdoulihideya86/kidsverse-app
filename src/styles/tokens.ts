@@ -1,56 +1,83 @@
 // ──────────────────────────────────────────────
-// KidsVerse — Design Tokens (Enhanced Phase 2)
+// KidsVerse — Design Tokens (V3 — Vibrant & Polished)
 // ──────────────────────────────────────────────
 
-/* ═══════ Color Palette ═══════ */
+/* ═══════ Color Palette — Duolingo-level vibrancy ═══════ */
 export const colors = {
   primary: {
-    red: '#FF6B6B',
-    orange: '#FFA94D',
-    yellow: '#FFD93D',
-    green: '#6BCB77',
-    blue: '#4D96FF',
-    purple: '#9B59B6',
-    pink: '#FF69B4',
-    cyan: '#00CED1',
-    teal: '#2DD4BF',
+    red: '#FF4757',
+    orange: '#FF6B2B',
+    yellow: '#FFC312',
+    green: '#2ED573',
+    blue: '#1E90FF',
+    purple: '#A55EEA',
+    pink: '#FF6B9D',
+    cyan: '#00D2D3',
+    teal: '#0ABDE3',
+  },
+  /* Extended palette for 3-stop gradients */
+  primaryLight: {
+    red: '#FF6B7A',
+    orange: '#FF9054',
+    yellow: '#FFD454',
+    green: '#5EE09A',
+    blue: '#4DAAFF',
+    purple: '#BF86F5',
+    pink: '#FF8FB8',
+    cyan: '#4DE0E0',
+    teal: '#3DD1F0',
+  },
+  primaryDark: {
+    red: '#E83545',
+    orange: '#E05510',
+    yellow: '#E5A800',
+    green: '#1BB85C',
+    blue: '#0A72E0',
+    purple: '#8B44D0',
+    pink: '#E0507F',
+    cyan: '#00ABAC',
+    teal: '#089FC0',
   },
   semantic: {
-    success: '#6BCB77',
-    successLight: '#D4EDDA',
-    warning: '#FFA94D',
-    warningLight: '#FFF3CD',
-    error: '#FF6B6B',
-    errorLight: '#F8D7DA',
-    info: '#4D96FF',
-    infoLight: '#D6EAF8',
+    success: '#2ED573',
+    successLight: '#D4F5E0',
+    successDark: '#1BB85C',
+    warning: '#FF6B2B',
+    warningLight: '#FFF0E5',
+    warningDark: '#E05510',
+    error: '#FF4757',
+    errorLight: '#FFE5E8',
+    errorDark: '#E83545',
+    info: '#1E90FF',
+    infoLight: '#E3F0FF',
+    infoDark: '#0A72E0',
   },
   neutral: {
     white: '#FFFFFF',
-    cream: '#FFF8F0',
-    gray50: '#F9FAFB',
-    gray100: '#F3F4F6',
-    gray200: '#E5E7EB',
-    gray300: '#D1D5DB',
-    gray400: '#9CA3AF',
-    gray500: '#6B7280',
-    gray600: '#4B5563',
-    gray700: '#374151',
-    gray800: '#1F2937',
-    gray900: '#111827',
+    cream: '#FFF9F0',
+    gray50: '#FAFBFE',
+    gray100: '#F0F2F8',
+    gray200: '#E2E5F0',
+    gray300: '#C8CCE0',
+    gray400: '#9BA2BF',
+    gray500: '#6B7394',
+    gray600: '#4A5170',
+    gray700: '#333A55',
+    gray800: '#1F2438',
+    gray900: '#111428',
   },
 } as const;
 
 /* ═══════ Component Variant Colors ═══════ */
 export const buttonVariants = {
-  primary: 'bg-kv-blue text-white hover:bg-blue-500 active:bg-blue-600',
-  secondary: 'bg-kv-gray-200 text-kv-gray-700 hover:bg-kv-gray-300 active:bg-kv-gray-400',
-  success: 'bg-kv-green text-white hover:bg-emerald-500 active:bg-emerald-600',
-  warning: 'bg-kv-orange text-white hover:bg-amber-500 active:bg-amber-600',
-  danger: 'bg-kv-red text-white hover:bg-red-500 active:bg-red-600',
-  ghost: 'bg-transparent text-kv-gray-700 hover:bg-kv-gray-100 active:bg-kv-gray-200',
-  premium: 'bg-gradient-to-r from-kv-purple to-violet-500 text-white hover:from-kv-purple hover:to-violet-600',
-  rainbow: 'bg-gradient-to-r from-kv-red via-kv-yellow via-kv-green to-kv-blue text-white',
+  primary: 'bg-gradient-to-b from-kv-blue to-blue-500 text-white shadow-glow-blue hover:shadow-glow-blue active:scale-[0.97]',
+  secondary: 'bg-gradient-to-b from-kv-gray-100 to-kv-gray-200 text-kv-gray-700 hover:from-kv-gray-200 hover:to-kv-gray-300 active:scale-[0.97]',
+  success: 'bg-gradient-to-b from-kv-green to-emerald-500 text-white shadow-glow-green hover:shadow-glow-green active:scale-[0.97]',
+  warning: 'bg-gradient-to-b from-kv-orange to-amber-500 text-white shadow-glow-orange hover:shadow-glow-orange active:scale-[0.97]',
+  danger: 'bg-gradient-to-b from-kv-red to-red-500 text-white shadow-glow-red hover:shadow-glow-red active:scale-[0.97]',
+  ghost: 'bg-transparent text-kv-gray-700 hover:bg-kv-gray-100 active:bg-kv-gray-200 active:scale-[0.97]',
+  premium: 'bg-gradient-to-b from-kv-purple to-violet-600 text-white shadow-glow-purple hover:shadow-glow-purple active:scale-[0.97]',
+  rainbow: 'bg-gradient-to-r from-kv-red via-kv-yellow to-kv-blue text-white shadow-glow-blue active:scale-[0.97]',
 } as const;
 
 export const buttonSizes = {
@@ -65,15 +92,17 @@ export const buttonSizes = {
 export const cardVariants = {
   default: 'bg-white rounded-2xl shadow-card',
   elevated: 'bg-white rounded-3xl shadow-card-hover',
-  interactive: 'bg-white rounded-2xl shadow-card cursor-pointer hover:shadow-card-hover active:scale-[0.98] transition-all duration-200',
+  interactive: 'bg-white rounded-2xl shadow-card cursor-pointer hover:shadow-card-hover hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200',
   flat: 'bg-white rounded-2xl border-2 border-kv-gray-100',
+  glass: 'bg-white/70 backdrop-blur-xl rounded-2xl border border-white/30 shadow-card',
+  glassHover: 'bg-white/70 backdrop-blur-xl rounded-2xl border border-white/40 shadow-card-hover cursor-pointer hover:bg-white/80 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200',
   gradient: {
-    blue: 'bg-gradient-to-br from-kv-blue to-blue-400 text-white rounded-2xl shadow-card',
-    green: 'bg-gradient-to-br from-kv-green to-emerald-400 text-white rounded-2xl shadow-card',
-    orange: 'bg-gradient-to-br from-kv-orange to-amber-400 text-white rounded-2xl shadow-card',
-    purple: 'bg-gradient-to-br from-kv-purple to-violet-400 text-white rounded-2xl shadow-card',
-    pink: 'bg-gradient-to-br from-kv-pink to-rose-400 text-white rounded-2xl shadow-card',
-    rainbow: 'bg-gradient-to-br from-kv-red via-kv-yellow via-kv-green to-kv-blue text-white rounded-2xl shadow-card',
+    blue: 'bg-gradient-to-br from-kv-blue via-blue-400 to-kv-cyan text-white rounded-2xl shadow-glow-blue',
+    green: 'bg-gradient-to-br from-kv-green via-emerald-400 to-kv-teal text-white rounded-2xl shadow-glow-green',
+    orange: 'bg-gradient-to-br from-kv-orange via-amber-400 to-kv-yellow text-white rounded-2xl shadow-glow-orange',
+    purple: 'bg-gradient-to-br from-kv-purple via-violet-400 to-kv-pink text-white rounded-2xl shadow-glow-purple',
+    pink: 'bg-gradient-to-br from-kv-pink via-rose-400 to-kv-red text-white rounded-2xl shadow-glow-pink',
+    rainbow: 'bg-gradient-to-br from-kv-red via-kv-yellow via-kv-green to-kv-blue text-white rounded-2xl shadow-glow-blue',
   },
 } as const;
 
@@ -93,7 +122,7 @@ export const badgeVariants = {
   danger: 'bg-kv-red/15 text-kv-red',
   info: 'bg-kv-cyan/15 text-kv-cyan',
   premium: 'bg-kv-purple/15 text-kv-purple',
-  achievement: 'bg-kv-yellow/15 text-kv-yellow',
+  achievement: 'bg-kv-yellow/15 text-amber-700',
 } as const;
 
 export const badgeSizes = {
@@ -103,14 +132,14 @@ export const badgeSizes = {
 } as const;
 
 export const progressBarVariants = {
-  blue: 'bg-kv-blue',
-  green: 'bg-kv-green',
-  orange: 'bg-kv-orange',
-  red: 'bg-kv-red',
-  purple: 'bg-kv-purple',
-  pink: 'bg-kv-pink',
-  cyan: 'bg-kv-cyan',
-  yellow: 'bg-kv-yellow',
+  blue: 'bg-gradient-to-r from-kv-blue to-blue-400',
+  green: 'bg-gradient-to-r from-kv-green to-emerald-400',
+  orange: 'bg-gradient-to-r from-kv-orange to-amber-400',
+  red: 'bg-gradient-to-r from-kv-red to-red-400',
+  purple: 'bg-gradient-to-r from-kv-purple to-violet-400',
+  pink: 'bg-gradient-to-r from-kv-pink to-rose-400',
+  cyan: 'bg-gradient-to-r from-kv-cyan to-cyan-400',
+  yellow: 'bg-gradient-to-r from-kv-yellow to-amber-400',
 } as const;
 
 export const progressBarHeights = {
@@ -150,6 +179,13 @@ export const fontSize = {
   hero: '4.5rem',
 } as const;
 
+export const letterSpacing = {
+  heading: '0.01em',
+  display: '-0.02em',
+  label: '0.04em',
+  wide: '0.08em',
+} as const;
+
 /* ═══════ Spacing ═══════ */
 export const spacing = {
   xs: '0.25rem',
@@ -173,31 +209,63 @@ export const borderRadius = {
   pill: '9999px',
 } as const;
 
-/* ═══════ Shadows ═══════ */
+/* ═══════ Shadows — including colored glow variants ═══════ */
 export const shadows = {
-  card: '0 4px 16px rgba(0, 0, 0, 0.08)',
-  cardHover: '0 8px 24px rgba(0, 0, 0, 0.12)',
-  button: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  buttonHover: '0 6px 20px rgba(0, 0, 0, 0.15)',
-  modal: '0 20px 60px rgba(0, 0, 0, 0.15)',
-  toast: '0 8px 32px rgba(0, 0, 0, 0.12)',
-  tooltip: '0 4px 12px rgba(0, 0, 0, 0.08)',
+  /* Neutral */
+  card: '0 2px 8px rgba(0, 0, 0, 0.06)',
+  cardHover: '0 8px 30px rgba(0, 0, 0, 0.10)',
+  button: '0 4px 14px rgba(0, 0, 0, 0.08)',
+  buttonHover: '0 8px 24px rgba(0, 0, 0, 0.14)',
+  modal: '0 24px 64px rgba(0, 0, 0, 0.18)',
+  toast: '0 12px 40px rgba(0, 0, 0, 0.12)',
+  tooltip: '0 6px 16px rgba(0, 0, 0, 0.10)',
+
+  /* Colored glows */
+  glowBlue: '0 4px 24px rgba(30, 144, 255, 0.35), 0 0 0 1px rgba(30, 144, 255, 0.08)',
+  glowGreen: '0 4px 24px rgba(46, 213, 115, 0.35), 0 0 0 1px rgba(46, 213, 115, 0.08)',
+  glowOrange: '0 4px 24px rgba(255, 107, 43, 0.35), 0 0 0 1px rgba(255, 107, 43, 0.08)',
+  glowRed: '0 4px 24px rgba(255, 71, 87, 0.35), 0 0 0 1px rgba(255, 71, 87, 0.08)',
+  glowPurple: '0 4px 24px rgba(165, 94, 234, 0.35), 0 0 0 1px rgba(165, 94, 234, 0.08)',
+  glowPink: '0 4px 24px rgba(255, 107, 157, 0.35), 0 0 0 1px rgba(255, 107, 157, 0.08)',
+  glowYellow: '0 4px 24px rgba(255, 195, 18, 0.40), 0 0 0 1px rgba(255, 195, 18, 0.10)',
+  glowCyan: '0 4px 24px rgba(0, 210, 211, 0.35), 0 0 0 1px rgba(0, 210, 211, 0.08)',
+
+  /* Inset highlights */
+  insetHighlight: 'inset 0 2px 0 rgba(255, 255, 255, 0.30)',
+  insetDeep: 'inset 0 -2px 4px rgba(0, 0, 0, 0.06)',
 } as const;
 
-/* ═══════ Motion / Animation ═══════ */
+/* ═══════ Motion / Animation — enhanced with jelly, wobble, tilt ═══════ */
 export const motionPresets = {
+  /* Durations */
   fast: { duration: 0.15, ease: 'easeOut' as const },
   normal: { duration: 0.3, ease: 'easeInOut' as const },
   slow: { duration: 0.5, ease: 'easeInOut' as const },
+  gentle: { duration: 0.8, ease: 'easeOut' as const },
+
+  /* Springs */
   spring: { type: 'spring' as const, stiffness: 300, damping: 30 },
   bounce: { type: 'spring' as const, stiffness: 400, damping: 15 },
-  slideUp: { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -20 } },
-  slideDown: { initial: { opacity: 0, y: -20 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: 20 } },
-  slideLeft: { initial: { opacity: 0, x: 20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -20 } },
-  slideRight: { initial: { opacity: 0, x: -20 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: 20 } },
+  snappy: { type: 'spring' as const, stiffness: 500, damping: 25 },
+  jelly: { type: 'spring' as const, stiffness: 200, damping: 10, mass: 0.8 },
+  wobble: { type: 'spring' as const, stiffness: 300, damping: 8 },
+
+  /* Transitions */
+  slideUp: { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -12 } },
+  slideDown: { initial: { opacity: 0, y: -24 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: 12 } },
+  slideLeft: { initial: { opacity: 0, x: 24 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -12 } },
+  slideRight: { initial: { opacity: 0, x: -24 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: 12 } },
   fade: { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } },
   scale: { initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 } },
   pop: { initial: { opacity: 0, scale: 0.8 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.8 } },
+
+  /* Entrance choreography */
+  bounceIn: { initial: { opacity: 0, scale: 0.3 }, animate: { opacity: 1, scale: 1 }, transition: { type: 'spring' as const, stiffness: 400, damping: 15 } },
+  fadeUp: { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, ease: 'easeOut' as const } },
+  scaleIn: { initial: { opacity: 0, scale: 0 }, animate: { opacity: 1, scale: 1 }, transition: { type: 'spring' as const, stiffness: 350, damping: 20 } },
+
+  /* Tilt (3D card) */
+  tilt: { transition: { type: 'spring' as const, stiffness: 300, damping: 20 }, style: { transformPerspective: 800 } },
 } as const;
 
 /* ═══════ Z-Index Layers ═══════ */
