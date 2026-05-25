@@ -1,0 +1,23 @@
+# ──────────────────────────────────────────────
+# KidsVerse — Vercel Deploy Ignore
+# ──────────────────────────────────────────────
+# Exclude development-only files from the Vercel deployment bundle.
+
+node_modules/
+src/__tests__/
+vitest.config.ts
+tsconfig.node.json
+*.test.{ts,tsx}
+*.spec.{ts,tsx}
+coverage/
+.env
+.env.local
+.env.*.local
+.firebase/
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+bun.lock
+DEPLOY.md
